@@ -12,7 +12,7 @@ describe "StaticPages" do
 
 	describe "Home Page" do
 		before { visit root_path }
-		let(:heading) { 'Group Living App' }
+		let(:heading) { 'group living app' }
 		let(:page_title) { '' }
 
 		it_should_behave_like "all static pages"
