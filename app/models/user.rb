@@ -17,7 +17,11 @@ class User < ActiveRecord::Base
 
 	has_secure_password
 
-	before_save { |user| user.email = email.downcase }
+	before_save do |user| 
+		user.email = email.downcase
+		user.first_name = user.first_name.titleize
+		user.last_name = user.last_name.titleize
+	end
 
 	validates :first_name, presence: true, length: { maximum: 25 }
 	validates :last_name,  presence: true, length: { maximum: 25 }
