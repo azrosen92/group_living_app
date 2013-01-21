@@ -9,6 +9,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
+#  remember_token  :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -22,6 +23,8 @@ class User < ActiveRecord::Base
 		user.first_name = user.first_name.titleize
 		user.last_name = user.last_name.titleize
 	end
+	
+	before_save :create_remember_token
 
 	validates :first_name, presence: true, length: { maximum: 25 }
 	validates :last_name,  presence: true, length: { maximum: 25 }
@@ -31,4 +34,10 @@ class User < ActiveRecord::Base
 												 uniqueness: { case_sensitive: false }
 	validates :password, length: { minimum: 6 }
 	validates :password_confirmation, length: { minimum: 6 }
+
+	private
+
+		def create_remember_token
+			self.remember_token = SecureRandom.urlsafe_base64
+		end
 end

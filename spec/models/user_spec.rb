@@ -9,6 +9,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
+#  remember_token  :string(255)
 #
 
 require 'spec_helper'
@@ -32,6 +33,7 @@ describe User do
 	it { should respond_to(:password) }
 	it { should respond_to(:password_confirmation) }
 	it { should respond_to(:authenticate) }
+	it { should respond_to(:remember_token) }
 
 	it { should be_valid }
 
@@ -126,6 +128,11 @@ describe User do
 			it { should_not == user_for_invalid_password }
 			specify { user_for_invalid_password.should be_false }
 		end
+	end
+
+	describe "remember token" do
+		before { @user.save }
+		its(:remember_token) { should_not be_blank }
 	end
 
 end
