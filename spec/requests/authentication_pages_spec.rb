@@ -55,6 +55,11 @@ describe "AuthenticationPages" do
 					it { should have_selector('title', text: 'Sign in') }
 				end
 
+				describe "visiting the user page" do
+					before { visit user_path(user) }
+					it { should have_selector('title', text: 'Sign in') }
+				end
+
 				describe "submitting to the update action" do
 					before { put user_path(user) }
 					specify { response.should redirect_to(signin_path) }
