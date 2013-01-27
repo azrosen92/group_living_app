@@ -1,0 +1,14 @@
+<% provide(:title, "New House") %>
+<h1>Create Your New House</h1>
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(@house) do |f| %>
+
+			<%= f.label :name, "House Name" %>
+			<%= f.text_field :name %>
+
+			<%= f.submit "Create House", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>

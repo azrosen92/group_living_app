@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120233117) do
+ActiveRecord::Schema.define(:version => 20130127185929) do
+
+  create_table "houses", :force => true do |t|
+    t.string   "name"
+    t.integer  "admin_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "houses", ["name"], :name => "index_houses_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
