@@ -4,6 +4,9 @@ describe "HousePages" do
 	subject { page }
 
 	let(:house) { FactoryGirl.create(:house) }
+	let(:user) { FactoryGirl.create(:user) }
+
+	before { sign_in user }
 
 	describe "New house page" do
 		before { visit new_house_path }

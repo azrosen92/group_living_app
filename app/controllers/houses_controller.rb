@@ -1,4 +1,5 @@
 class HousesController < ApplicationController
+
   def new
 		@house = House.new
   end
@@ -15,4 +16,5 @@ class HousesController < ApplicationController
 			render 'new'
 		end
 	end
+
 end

@@ -21,6 +21,8 @@ describe "House" do
 
 	it { should respond_to(:name) }
 	it { should respond_to(:admin_id) }
+	it { should respond_to(:memberships) }
+	it { should respond_to(:members) }
 	
 	it { should be_valid }
 

@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
 									:password_confirmation
 
 	has_secure_password
+	has_many :memberships, foreign_key: "house_id", dependent: :destroy
+	has_many :houses, through: :memberships, source: :house
 
 	before_save do |user| 
 		user.email = email.downcase
