@@ -36,6 +36,9 @@ describe User do
 	it { should respond_to(:remember_token) }
 	it { should respond_to(:memberships) }
 	it { should respond_to(:houses) }
+	it { should respond_to(:in_house?) }
+	it { should respond_to(:add_house!) }
+	it { should respond_to(:remove_house!) }
 
 	it { should be_valid }
 
@@ -135,6 +138,27 @@ describe User do
 	describe "remember token" do
 		before { @user.save }
 		its(:remember_token) { should_not be_blank }
+	end
+
+	describe "joining a house" do
+		before do
+			@user.save
+			@house = House.new(name: "test house", admin_id: @user.id)
+			@house.save
+			@user.add_house!(@house)
+		end
+
+		it { should be_in_house(@house) }
+		its(:houses) { should include(@house) }
+
+		describe "and leaving a house" do
+			before do
+				@user.remove_house!(@house)
+			end
+
+			it { should_not be_in_house(@house) }
+			its(:houses) { should_not include(@house) }
+		end
 	end
 
 end

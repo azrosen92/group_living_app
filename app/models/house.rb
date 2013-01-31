@@ -15,8 +15,20 @@ class House < ActiveRecord::Base
 	validates :name, presence: true, 
 									 uniqueness: { case_sensitive: false }
 
-	has_many :memberships, foreign_key: "user_id", dependent: :destroy
+	has_many :memberships, dependent: :destroy
 	has_many :members, through: :memberships, source: :user
 
 	before_save { |house| house.name = name.downcase }
+
+	def add_user!(user)
+		memberships.create!(user_id: user.id)
+	end
+
+	def have_user?(user)
+		memberships.find_by_user_id(user.id)
+	end
+
+	def remove_user!(user)
+		memberships.find_by_user_id(user.id).destroy
+	end
 end

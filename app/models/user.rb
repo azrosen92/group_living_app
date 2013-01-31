@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 									:password_confirmation
 
 	has_secure_password
-	has_many :memberships, foreign_key: "house_id", dependent: :destroy
+	has_many :memberships, dependent: :destroy
 	has_many :houses, through: :memberships, source: :house
 
 	before_save do |user| 
@@ -36,6 +36,18 @@ class User < ActiveRecord::Base
 												 uniqueness: { case_sensitive: false }
 	validates :password, length: { minimum: 6 }
 	validates :password_confirmation, length: { minimum: 6 }
+
+	def add_house!(house)
+		memberships.create!(house_id: house.id)
+	end
+
+	def in_house?(house)
+		memberships.find_by_house_id(house.id)
+	end
+
+	def remove_house!(house)
+		memberships.find_by_house_id(house.id).destroy
+	end
 
 	private
 

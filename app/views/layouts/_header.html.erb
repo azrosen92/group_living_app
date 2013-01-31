@@ -12,7 +12,9 @@
 								Houses <b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
-								<!-- list of all houses associated with logged in user -->
+								<% current_user.houses.each do |house| %>
+										<li><%= link_to "#{house.name}", house_path(house) %></li>
+								<% end %>
 								<li class="divider"></li>
 								<li><%= link_to "+ New house", new_house_path %></li>
 							</ul>
